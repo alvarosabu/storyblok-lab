@@ -36,6 +36,10 @@ async function fetchStories(routes: string[], cacheVersion: number, page: number
 
 export default defineNuxtConfig({
   modules: ['@unocss/nuxt', ['@storyblok/nuxt', { accessToken: process.env.STORYBLOK_TOKEN }]],
+  css: ['lite-youtube-embed/src/lite-yt-embed.css'],
+  storyblok: {
+    accessToken: process.env.STORYBLOK_TOKEN,
+  },
   hooks: {
     async 'nitro:config'(nitroConfig) {
       if (!nitroConfig || nitroConfig.dev) {
@@ -83,6 +87,11 @@ export default defineNuxtConfig({
 
     // core options
     shortcuts: [],
+  },
+  vue: {
+    compilerOptions: {
+      isCustomElement: tag => ['lite-youtube'].includes(tag),
+    },
   },
   vite: {
     optimizeDeps: { exclude: ['fsevents'] },
